@@ -44,7 +44,8 @@ class Dog
 
       dog
   end
-def self.new_from_db(row)
+  
+  def self.new_from_db(row)
     attributes_hash = {
       :id => row[0],
       :name => row[1],
@@ -52,6 +53,7 @@ def self.new_from_db(row)
     }
     self.new(attributes_hash)
   end
+  
   def self.find_by_id(id)
     sql = <<-SQL
       SELECT * FROM dogs WHERE id = ?
@@ -62,14 +64,11 @@ def self.new_from_db(row)
     end.first
   end
 
-  
-
   def self.find_or_create_by(name:, breed:)
     sql = <<-SQL
       SELECT * FROM dogs
       WHERE name = ? AND breed = ?
       SQL
-
 
       dog = DB[:conn].execute(sql, name, breed).first
 
