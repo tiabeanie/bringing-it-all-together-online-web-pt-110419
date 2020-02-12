@@ -26,7 +26,8 @@ class Dog
 
     DB[:conn].execute(sql)
   end
-def self.new_from_db(row)
+  
+  def self.new_from_db(row)
     attributes_hash = {
       :id => row[0],
       :name => row[1],
@@ -34,6 +35,7 @@ def self.new_from_db(row)
     }
     self.new(attributes_hash)
   end
+  
   def save
     sql = <<-SQL
       INSERT INTO dogs (name, breed) VALUES (?, ?)
@@ -61,8 +63,6 @@ def self.new_from_db(row)
       self.new_from_db(row)
     end.first
   end
-
-  
 
   def self.find_or_create_by(name:, breed:)
     sql = <<-SQL
